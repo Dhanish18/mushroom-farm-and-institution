@@ -1,8 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { ShoppingBasket, User, Menu, X, Sprout } from 'lucide-react';
+import { Menu, MessageCircle, Phone, X } from 'lucide-react';
 
-export default function Navbar({ cartCount, onOpenCart, onOpenProfile }) {
-  const [activeSection, setActiveSection] = useState('farm');
+const navItems = [
+  { label: 'Infrastructure', id: 'experience' },
+  { label: 'Cultivation Methodology', id: 'process' },
+  { label: 'Marketing', id: 'collection' },
+  { label: 'Available Trainings', id: 'available-trainings' },
+  { label: 'About Us', id: 'about-us' },
+  { label: 'Future Goal', id: 'future-goal' },
+  { label: 'Consultation', id: 'consultation' },
+];
+
+const sectionOrder = [
+  'process',
+  'experience',
+  'collection',
+  'available-trainings',
+  'about-us',
+  'future-goal',
+  'consultation',
+];
+
+export default function Navbar() {
+  const [activeSection, setActiveSection] = useState('experience');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -10,34 +30,29 @@ export default function Navbar({ cartCount, onOpenCart, onOpenProfile }) {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ['farm', 'collection', 'process', 'experience', 'why-us', 'journal'];
       const scrollPos = window.scrollY + 200;
+      let currentSection = navItems[0].id;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
-          break;
+      for (const id of sectionOrder) {
+        const el = document.getElementById(id);
+        const sectionTop = el ? el.getBoundingClientRect().top + window.scrollY : Infinity;
+        if (sectionTop <= scrollPos) {
+          currentSection = id;
         }
       }
+
+      setActiveSection(currentSection);
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navItems = [
-    { label: 'Farm', id: 'farm' },
-    { label: 'Varieties', id: 'collection' },
-    { label: 'Growing Process', id: 'process' },
-    { label: 'Experience', id: 'experience' },
-    { label: 'Why Us', id: 'why-us' },
-    { label: 'Journal', id: 'testimonials' },
-  ];
-
   const handleNavClick = (e, id) => {
     e.preventDefault();
     setMobileMenuOpen(false);
+    setActiveSection(id);
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
@@ -56,12 +71,11 @@ export default function Navbar({ cartCount, onOpenCart, onOpenProfile }) {
           onClick={(e) => handleNavClick(e, 'farm')} 
           className="flex items-center gap-2.5 group focus:outline-none"
         >
-          <span className="flex items-center justify-center w-9 h-9 rounded-full bg-secondary-container text-secondary transition-transform group-hover:scale-105 shadow-sm">
-            <Sprout className="w-5 h-5 text-secondary" />
-          </span>
-          <span className="font-headline-sm text-[13px] xl:text-[15px] leading-[1.05] xl:leading-normal text-primary tracking-tight font-serif font-bold max-w-[174px] xl:max-w-none xl:whitespace-nowrap">
-            Udhayan Mushroom Farm and Institution
-          </span>
+          <img
+            src="/pics/updated-udhayan-logo-transparent.png"
+            alt="Udhayan Mushroom Cultivation Farm"
+            className="h-11 w-[132px] sm:h-14 sm:w-[168px] object-contain transition-transform group-hover:scale-[1.02]"
+          />
         </a>
 
         {/* Desktop Navigation Links */}
@@ -73,6 +87,7 @@ export default function Navbar({ cartCount, onOpenCart, onOpenProfile }) {
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={(e) => handleNavClick(e, item.id)}
+                aria-current={isActive ? 'location' : undefined}
                 className={`transition-colors text-[12px] whitespace-nowrap ${
                   isActive
                     ? "text-primary font-semibold relative after:content-[''] after:absolute after:-bottom-1.5 after:left-0 after:w-full after:h-0.5 after:bg-primary"
@@ -87,29 +102,19 @@ export default function Navbar({ cartCount, onOpenCart, onOpenProfile }) {
 
         {/* Action Controls */}
         <div className="flex items-center gap-3.5">
-          {/* Shop Harvest Cart Trigger */}
-          <button
-            onClick={onOpenCart}
-            aria-label="View Shopping Cart"
-            className="flex items-center gap-2 bg-[#2D4229] text-white pl-3 pr-2.5 py-2 rounded-full shadow-md hover:bg-[#20311D] transition-all transform hover:-translate-y-0.5 focus:outline-none whitespace-nowrap"
+          <a
+            href="https://wa.me/91"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Chat with us on WhatsApp"
+            title="Chat with us on WhatsApp"
+            className="w-9 h-9 rounded-full bg-[#25D366] hover:bg-[#1DA851] flex items-center justify-center shadow-sm text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
           >
-            <ShoppingBasket className="w-[18px] h-[18px]" />
-            <span className="hidden sm:inline font-label-md text-[11px] tracking-wider uppercase font-semibold whitespace-nowrap">
-              Shop Harvest
+            <span className="relative flex items-center justify-center">
+              <MessageCircle className="w-[23px] h-[23px]" strokeWidth={2.5} />
+              <Phone className="absolute w-[10px] h-[10px]" strokeWidth={3} />
             </span>
-            <span className="flex items-center justify-center min-w-[20px] h-5 px-1 rounded-full bg-[#E2EBDA] text-[#263B22] font-label-sm text-label-sm font-bold">
-              {cartCount}
-            </span>
-          </button>
-
-          {/* Profile / Account Button */}
-          <button
-            onClick={onOpenProfile}
-            aria-label="User Account"
-            className="w-9 h-9 rounded-full bg-[#2D4229] hover:bg-[#20311D] flex items-center justify-center shadow-sm text-white transition-colors"
-          >
-            <User className="w-[18px] h-[18px]" />
-          </button>
+          </a>
 
           {/* Mobile Menu Hamburger */}
           <button
@@ -140,18 +145,6 @@ export default function Navbar({ cartCount, onOpenCart, onOpenProfile }) {
                 {item.label}
               </a>
             ))}
-            <div className="pt-2 border-t border-outline-variant flex gap-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenCart();
-                }}
-                className="flex-1 py-3 bg-[#2D4229] text-white rounded-full font-label-md flex items-center justify-center gap-2"
-              >
-                <ShoppingBasket className="w-4 h-4" />
-                View Cart ({cartCount})
-              </button>
-            </div>
           </div>
         </div>
       )}

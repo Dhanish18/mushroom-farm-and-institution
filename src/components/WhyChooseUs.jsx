@@ -1,85 +1,86 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sprout, Tractor, Repeat, ShieldCheck } from 'lucide-react';
+import { CalendarDays, MapPin, Users } from 'lucide-react';
+import MushroomIcon from './MushroomIcon';
 import { fadeInUp, staggerContainer, staggerItem, viewport } from '../utils/animations';
 
-export default function WhyChooseUs() {
-  const reasons = [
-    {
-      icon: Sprout,
-      title: "100% Natural Cultivation",
-      description: "No forced growth stimulants, no synthetic foliar sprays. Only pure water, natural hardwoods, and clean mountain spore lines."
-    },
-    {
-      icon: Tractor,
-      title: "Fresh Farm Harvest",
-      description: "Shipped cold packed immediately after daybreak clipping. Arrives crisp with intact veils and resilient moisture levels."
-    },
-    {
-      icon: Repeat,
-      title: "Closed-Loop Farming",
-      description: "Our growing blocks are made of upcycled timber mill surplus, and every kilogram of post-flush substrate enriches local community soils."
-    },
-    {
-      icon: ShieldCheck,
-      title: "ISO Lab Production",
-      description: "Monitored under cleanroom protocols to ensure every specimen is free from foreign bacterial contaminants and mold spores."
-    }
-  ];
+const milestones = [
+  {
+    year: '17 January 2007',
+    title: 'Udhayan begins',
+    description: 'Udhayan Mushroom Cultivation Farm began in Kadachanenthal, Madurai, Tamil Nadu.',
+    icon: CalendarDays,
+  },
+  {
+    year: 'Early production',
+    title: 'Commercial oyster mushrooms',
+    description: 'The farm initially focused on commercial oyster mushroom cultivation.',
+    icon: MushroomIcon,
+  },
+  {
+    year: 'As markets changed',
+    title: 'Milky mushroom production',
+    description: 'Production later focused on milky mushrooms in response to market requirements.',
+    icon: MapPin,
+  },
+  {
+    year: '2013',
+    title: 'Experience shared through training',
+    description: 'After gaining production and cultivation experience, the farm began training people interested in mushroom cultivation.',
+    icon: Users,
+  },
+];
 
+export default function WhyChooseUs() {
   return (
-    <section id="why-us" className="w-full py-24 bg-[#F5EDE2] relative">
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-16">
-        
-        {/* Header */}
+    <section id="about-us" className="w-full py-24 bg-[#F5EDE2] relative">
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-12">
         <motion.div
-          className="text-center max-w-2xl mx-auto flex flex-col gap-4"
+          className="max-w-3xl"
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
           variants={fadeInUp}
         >
           <span className="font-label-md text-label-md text-[#475C3E] uppercase tracking-widest font-semibold">
-            The Udhayan Distinction
+            About Udhayan
           </span>
-          <h2 className="font-headline-lg text-3xl sm:text-4xl text-[#1D1E18] tracking-tight font-serif font-bold">
-            Why Our Fungi Elevate Culinary Standards
+          <h2 className="mt-3 font-headline-lg text-3xl sm:text-4xl text-[#1D1E18] tracking-tight font-serif font-bold">
+            Cultivating mushrooms and sharing experience since 2007.
           </h2>
-          <p className="font-body-lg text-body-lg text-on-surface-variant">
-            We combine biological integrity with exacting laboratory standards to deliver mushrooms of unparalleled texture and density.
+          <p className="mt-5 font-body-lg text-body-lg text-on-surface-variant leading-relaxed">
+            Based in Kadachanenthal, Madurai, Tamil Nadu, Udhayan began with commercial oyster mushroom cultivation and later focused on milky mushroom production to meet market requirements. In 2013, after gaining production and cultivation experience, we began sharing our knowledge through training.
           </p>
         </motion.div>
 
-        {/* 4 Distinction Cards */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5"
           initial="hidden"
           whileInView="visible"
           viewport={viewport}
           variants={staggerContainer}
         >
-          {reasons.map((r, i) => {
-            const Icon = r.icon;
-            return (
-              <motion.div 
-                key={i}
-                variants={staggerItem}
-                className="flex flex-col items-start gap-4 p-8 rounded-3xl bg-white border border-outline-variant hover:border-[#828577] transition-all duration-300 shadow-sm hover:shadow-md hover:-translate-y-1"
-              >
-                <div className="w-14 h-14 rounded-2xl bg-[#E2EBDA] flex items-center justify-center text-[#2D4229]">
-                  <Icon className="w-7 h-7" />
-                </div>
-                <h3 className="font-headline-sm text-xl text-[#1D1E18] font-serif font-semibold">
-                  {r.title}
-                </h3>
-                <p className="font-body-md text-body-md text-on-surface-variant">
-                  {r.description}
-                </p>
-              </motion.div>
-            );
-          })}
+          {milestones.map(({ year, title, description, icon: Icon }) => (
+            <motion.article
+              key={title}
+              variants={staggerItem}
+              className="flex flex-col gap-4 p-6 rounded-3xl bg-white border border-outline-variant shadow-sm"
+            >
+              <div className="flex items-center justify-between text-[#475C3E]">
+                <Icon className="w-6 h-6" aria-hidden="true" />
+                <span className="font-label-sm text-label-sm uppercase tracking-wide font-semibold text-right">
+                  {year}
+                </span>
+              </div>
+              <h3 className="font-headline-sm text-xl text-[#1D1E18] font-serif font-semibold">
+                {title}
+              </h3>
+              <p className="font-body-sm text-body-sm text-on-surface-variant">
+                {description}
+              </p>
+            </motion.article>
+          ))}
         </motion.div>
-
       </div>
     </section>
   );

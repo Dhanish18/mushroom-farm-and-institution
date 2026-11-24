@@ -1,99 +1,99 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sprout, ShoppingBag, Download, CheckCircle2 } from 'lucide-react';
+import { BookOpen, ChefHat, FlaskConical, Recycle } from 'lucide-react';
+import MushroomIcon from './MushroomIcon';
 import { fadeInUp, staggerContainer, staggerItem, viewport } from '../utils/animations';
 
-export default function CTASection({ onOpenGuide }) {
-  const scrollToCollection = (e) => {
-    e.preventDefault();
-    const el = document.getElementById('collection');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
+const trainings = [
+  {
+    title: 'Oyster and milky mushroom cultivation',
+    icon: MushroomIcon,
+  },
+  {
+    title: 'Mushroom spawn training',
+    icon: FlaskConical,
+  },
+  {
+    title: 'Mushroom culture training',
+    icon: BookOpen,
+  },
+  {
+    title: 'Compost preparation from mushroom waste',
+    icon: Recycle,
+  },
+  {
+    title: 'Mushroom value-added products training',
+    icon: ChefHat,
+  },
+];
 
+export default function CTASection() {
   return (
-    <section className="w-full py-28 bg-[#1C2A1A] relative overflow-hidden">
-      {/* Atmospheric depth lighting */}
+    <section id="available-trainings" className="w-full py-24 bg-[#1C2A1A] relative overflow-hidden">
       <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-[50rem] h-[25rem] rounded-full bg-[#243821]/60 blur-[130px] pointer-events-none" />
 
-      <motion.div
-        className="max-w-5xl mx-auto px-6 lg:px-12 text-center flex flex-col items-center gap-8 relative z-10"
-        initial="hidden"
-        whileInView="visible"
-        viewport={viewport}
-        variants={staggerContainer}
-      >
-        
-        {/* Overline Tag */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-10 relative z-10">
         <motion.div
-          variants={staggerItem}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 text-[#D1E6BF]"
+          className="max-w-3xl"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeInUp}
         >
-          <Sprout className="w-4 h-4" />
-          <span className="font-label-md text-label-md uppercase tracking-wider font-semibold">
-            Direct From Our Chambers
+          <span className="font-label-md text-label-md text-[#D1E6BF] uppercase tracking-widest font-semibold">
+            Available Trainings
           </span>
+          <h2 className="mt-3 font-display-lg text-3xl sm:text-4xl text-[#FAF4ED] tracking-tight font-serif font-bold">
+            Practical mushroom training at Udhayan
+          </h2>
+          <p className="mt-4 font-body-lg text-body-lg text-[#FAF4ED]/80">
+            Training has been part of Udhayan’s work since 2013, with nearly 2,000 individual and group trainings conducted over the past 13 years. Udhayan also offers entrepreneurship training and supports projects and research work for college students.
+          </p>
         </motion.div>
 
-        {/* Main Heading */}
-        <motion.h2
-          variants={staggerItem}
-          className="font-display-lg text-4xl sm:text-5xl text-[#FAF4ED] tracking-tight max-w-3xl font-serif font-bold"
-        >
-          Bring the Freshness of Nature Home.
-        </motion.h2>
-
-        {/* Description */}
-        <motion.p
-          variants={staggerItem}
-          className="font-body-lg text-body-lg text-[#FAF4ED]/85 max-w-2xl leading-relaxed"
-        >
-          Experience premium organic mushrooms cultivated with reverence for the ecosystem and delivered fresh from our cleanroom vaults to your kitchen within hours of harvest.
-        </motion.p>
-
-        {/* Action Row */}
         <motion.div
-          variants={staggerItem}
-          className="flex flex-wrap items-center justify-center gap-5 pt-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={staggerContainer}
+        >
+          {trainings.map(({ title, icon: Icon }, index) => (
+            <motion.article
+              key={title}
+              variants={staggerItem}
+              className="flex items-start gap-4 p-6 rounded-3xl bg-[#243821] border border-white/10"
+            >
+              <span className="flex shrink-0 items-center justify-center w-11 h-11 rounded-2xl bg-white/10 text-[#D1E6BF]">
+                <Icon className="w-5 h-5" aria-hidden="true" />
+              </span>
+              <div>
+                <span className="font-label-sm text-label-sm text-[#D1E6BF]/70">TRAINING 0{index + 1}</span>
+                <h3 className="mt-1 font-headline-sm text-lg text-[#FAF4ED] font-serif font-semibold">
+                  {title}
+                </h3>
+              </div>
+            </motion.article>
+          ))}
+        </motion.div>
+
+        <motion.div
+          className="pt-2"
+          initial="hidden"
+          whileInView="visible"
+          viewport={viewport}
+          variants={fadeInUp}
         >
           <a
-            href="#collection"
-            onClick={scrollToCollection}
-            className="inline-flex items-center gap-3 px-9 py-4 rounded-full bg-[#FAF4ED] text-[#1D1E18] font-label-lg text-label-lg shadow-lg hover:bg-white transition-all duration-300 transform hover:-translate-y-0.5 font-semibold"
+            href="https://wa.me/91?text=I%27m%20interested%20in%20mushroom%20training"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#25D366] text-white font-semibold shadow-lg hover:bg-[#1DA851] transition-colors"
           >
-            <span>Shop Growing Kits</span>
-            <ShoppingBag className="w-[18px] h-[18px]" />
+            Enquire about training
           </a>
-
-          <button
-            onClick={onOpenGuide}
-            type="button"
-            className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-white/20 text-[#FAF4ED] hover:bg-white/10 font-label-lg text-label-lg transition-colors"
-          >
-            <Download className="w-5 h-5" />
-            <span>Download Cultivation Guide (PDF)</span>
-          </button>
         </motion.div>
-
-        {/* Trust Signals */}
-        <motion.div
-          variants={staggerItem}
-          className="pt-8 flex flex-wrap items-center justify-center gap-8 text-[#FAF4ED]/60 font-body-sm text-body-sm"
-        >
-          <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-[#D1E6BF]" />
-            Guaranteed Fresh Delivery
-          </span>
-          <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-[#D1E6BF]" />
-            Zero Plastic Packaging
-          </span>
-          <span className="flex items-center gap-1.5">
-            <CheckCircle2 className="w-4 h-4 text-[#D1E6BF]" />
-            Carbon-Neutral Cold Chain
-          </span>
-        </motion.div>
-
-      </motion.div>
+      </div>
     </section>
   );
 }
