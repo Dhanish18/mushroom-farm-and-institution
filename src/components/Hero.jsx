@@ -14,10 +14,6 @@ export default function Hero() {
         aria-hidden="true"
         tabIndex={-1}
         onLoadedMetadata={(event) => {
-          const { videoWidth, videoHeight } = event.currentTarget;
-          if (videoWidth && videoHeight) {
-            event.currentTarget.parentElement.style.aspectRatio = `${videoWidth} / ${videoHeight}`;
-          }
           event.currentTarget.defaultPlaybackRate = 0.5;
           event.currentTarget.playbackRate = 0.5;
         }}
