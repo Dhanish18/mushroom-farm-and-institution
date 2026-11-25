@@ -136,6 +136,17 @@ footer input {
   color: #f4efd9 !important;
 }
 
+/* Let the main section containers use wide and zoomed-out viewports better. */
+@media (min-width: 1280px) {
+  .max-w-7xl {
+    max-width: min(94vw, 1680px);
+  }
+
+  .max-w-6xl {
+    max-width: min(92vw, 1540px);
+  }
+}
+
 .hero-section {
   min-height: 548px;
   padding: 86px 5vw 20px;
@@ -158,9 +169,12 @@ footer input {
 .hero-video {
   position: absolute;
   z-index: -2;
-  inset: 0;
-  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(100%, 1600px);
   height: 100%;
+  transform: translateX(-50%);
   object-fit: cover;
   object-position: center top;
   pointer-events: none;
