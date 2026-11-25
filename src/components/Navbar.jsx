@@ -104,7 +104,7 @@ export default function Navbar() {
         {/* Action Controls */}
         <div className="flex items-center gap-3.5">
           <a
-            href="https://wa.me/91"
+            href="https://wa.me/919655196699"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Chat with us on WhatsApp"

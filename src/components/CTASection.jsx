@@ -85,7 +85,7 @@ export default function CTASection() {
           variants={fadeInUp}
         >
           <a
-            href="https://wa.me/91?text=I%27m%20interested%20in%20mushroom%20training"
+            href="https://wa.me/919655196699?text=I%27m%20interested%20in%20mushroom%20training"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-7 py-4 rounded-full bg-[#25D366] text-white font-semibold shadow-lg hover:bg-[#1DA851] transition-colors"
